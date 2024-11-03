@@ -8,6 +8,20 @@
       "when": 1730585389911,
       "tag": "0000_damp_blizzard",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1730628566306,
+      "tag": "0001_boring_peter_parker",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1730628636264,
+      "tag": "0002_silent_glorian",
+      "breakpoints": true
     }
   ]
 }
