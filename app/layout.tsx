@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { QueryProvider } from "@/providers/providers";
+import { SheetProvider } from "@/providers/sheetProvider";
+import { ReactNode } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <ClerkProvider afterSignOutUrl="/">
@@ -32,6 +34,7 @@ export default function RootLayout({
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
+            <SheetProvider />
             {children}
           </body>
         </QueryProvider>
