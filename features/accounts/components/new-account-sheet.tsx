@@ -23,7 +23,11 @@ export function NewAccountSheet() {
   const mutation = useCreateAccount();
 
   const onSubmit = (values: FormsValues) => {
-    mutation.mutate(values);
+    mutation.mutate(values, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
   return (
