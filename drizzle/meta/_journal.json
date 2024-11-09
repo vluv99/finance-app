@@ -22,6 +22,13 @@
       "when": 1730628636264,
       "tag": "0002_silent_glorian",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731177345948,
+      "tag": "0003_fast_cobalt_man",
+      "breakpoints": true
     }
   ]
 }
