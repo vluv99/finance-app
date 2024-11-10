@@ -55,6 +55,6 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
     references: [categories.id],
   }),
 }));
-export const insertTransactionsSchema = createInsertSchema(transactions, {
+export const insertTransactionSchema = createInsertSchema(transactions, {
   date: z.coerce.date(),
 });
