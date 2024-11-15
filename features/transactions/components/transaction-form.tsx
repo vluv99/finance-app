@@ -139,9 +139,10 @@ export function TransactionForm({
               <FormLabel>Payee</FormLabel>
               <FormControl>
                 <Input
+                  {...field}
                   disabled={disabled}
                   placeholder="Add a payee"
-                  //{...field}
+                  value={field.value ?? ""}
                 />
               </FormControl>
             </FormItem>
