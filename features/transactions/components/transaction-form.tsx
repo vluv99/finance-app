@@ -188,7 +188,7 @@ export function TransactionForm({
         />
 
         <Button className="w-full">
-          {id ? "Save changes" : "Create account"}
+          {id ? "Save changes" : "Create transaction"}
         </Button>
         {!!id && (
           <Button
@@ -199,7 +199,7 @@ export function TransactionForm({
             variant="outline"
           >
             <Trash className="size-4 mr-2" />
-            Delete account
+            Delete transaction
           </Button>
         )}
       </form>
