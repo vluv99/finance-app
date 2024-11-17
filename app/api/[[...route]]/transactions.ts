@@ -300,7 +300,10 @@ const app = new Hono()
         .with(transactionToDelete)
         .delete(transactions)
         .where(
-          inArray(transactions.id, sql`select id from ${transactionToDelete}`),
+          inArray(
+            transactions.id,
+            sql`(select id from ${transactionToDelete})`,
+          ),
         )
         .returning({ id: transactions.id });
 
