@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useOpenAccount } from "@/features/accounts/hooks/use-open-account";
-import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useDeleteTransaction } from "@/features/transactions/api/use-delete-transaction";
+import { useOpenTransaction } from "@/features/transactions/hooks/use-open-transaction";
 
 type Props = {
   id: string;
@@ -19,11 +19,11 @@ type Props = {
 export function Actions({ id }: Props) {
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
-    "You are about to delete this account.",
+    "You are about to delete this transaction.",
   );
 
-  const deleteMutation = useDeleteAccount(id);
-  const { onOpen, onClose } = useOpenAccount();
+  const deleteMutation = useDeleteTransaction(id);
+  const { onOpen, onClose } = useOpenTransaction();
 
   const handleDelete = async () => {
     const ok = await confirm();

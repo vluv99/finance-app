@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InferResponseType } from "hono";
 import { client } from "@/lib/hono";
-import { Actions } from "@/app/(dashboard)/accounts/actions";
 import { format } from "date-fns";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { AccountColumn } from "@/app/(dashboard)/transactions/account-column";
+import { CategoryColumn } from "@/app/(dashboard)/transactions/category-column";
+import { Actions } from "@/app/(dashboard)/transactions/actions";
 
 export type ResponseType = InferResponseType<
   typeof client.api.transactions.$get,
@@ -72,7 +73,13 @@ export const columns: ColumnDef<ResponseType>[] = [
       );
     },
     cell: ({ row }) => {
-      return <span>{row.original.category}</span>;
+      return (
+        <CategoryColumn
+          id={row.original.id}
+          category={row.original.category}
+          categoryId={row.original.categoryId}
+        />
+      );
     },
   },
   {
