@@ -5,7 +5,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cx } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -14,7 +13,7 @@ type Props = {
   onChange: (columnsIndex: number, value: string | null) => void;
 };
 
-const options = ["amount", "date", "payee", "notes"];
+const options = ["amount", "date", "payee" /*, "notes"*/];
 
 export function TableHeadSelect({
   columnIndex,
