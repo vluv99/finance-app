@@ -6,6 +6,7 @@ import { differenceInDays, parse, subDays } from "date-fns";
 import { db } from "@/db/drizzle";
 import { and, eq, gte, lte, sql, sum } from "drizzle-orm";
 import { accounts, transactions } from "@/db/schema";
+import { calculatePercentageChange } from "@/lib/utils";
 
 const app = new Hono().get(
   "/",
@@ -34,7 +35,7 @@ const app = new Hono().get(
 
     const periodLength = differenceInDays(endDate, startDate) + 1;
     const lastPeriodStart = subDays(startDate, periodLength);
-    const lastPeriodEndt = subDays(endDate, periodLength);
+    const lastPeriodEnd = subDays(endDate, periodLength);
 
     async function fetchFinancialData(
       userId: string,
@@ -73,13 +74,29 @@ const app = new Hono().get(
 
     const [lastPeriod] = await fetchFinancialData(
       auth.userId,
-      startDate,
-      endDate,
+      lastPeriodStart,
+      lastPeriodEnd,
+    );
+
+    const incomeChange = calculatePercentageChange(
+      currentPeriod.income ?? 0,
+      lastPeriod.income ?? 0,
+    );
+    const expenseChange = calculatePercentageChange(
+      currentPeriod.expenses ?? 0,
+      lastPeriod.expenses ?? 0,
+    );
+    const remainingChange = calculatePercentageChange(
+      currentPeriod.remaining ?? 0,
+      lastPeriod.remaining ?? 0,
     );
 
     return c.json({
       currentPeriod,
       lastPeriod,
+      incomeChange,
+      expenseChange,
+      remainingChange,
     });
   },
 );
