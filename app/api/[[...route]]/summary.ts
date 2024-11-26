@@ -10,7 +10,6 @@ import { calculatePercentageChange, fillMissingDays } from "@/lib/utils";
 
 const app = new Hono().get(
   "/",
-  clerkMiddleware(),
   zValidator(
     "query",
     z.object({
@@ -19,6 +18,7 @@ const app = new Hono().get(
       accountId: z.string().optional(),
     }),
   ),
+  clerkMiddleware(),
   async (c) => {
     const auth = getAuth(c);
     const { from, to, accountId } = c.req.valid("query");
@@ -30,8 +30,10 @@ const app = new Hono().get(
     const defaultTo = new Date();
     const defaultFrom = subDays(defaultTo, 30);
 
-    const startDate = from ? parse(from, "yyy-MM-dd", new Date()) : defaultFrom;
-    const endDate = to ? parse(to, "yyy-MM-dd", new Date()) : defaultTo;
+    const startDate = from
+      ? parse(from, "yyyy-MM-dd", new Date())
+      : defaultFrom;
+    const endDate = to ? parse(to, "yyyy-MM-dd", new Date()) : defaultTo;
 
     const periodLength = differenceInDays(endDate, startDate) + 1;
     const lastPeriodStart = subDays(startDate, periodLength);
@@ -48,7 +50,7 @@ const app = new Hono().get(
             sql`SUM(CASE WHEN ${transactions.amount} >= 0 THEN ${transactions.amount} ELSE 0 END)`.mapWith(
               Number,
             ),
-          expenses:
+          expense:
             sql`SUM(CASE WHEN ${transactions.amount} < 0 THEN ${transactions.amount} ELSE 0 END)`.mapWith(
               Number,
             ),
@@ -58,7 +60,7 @@ const app = new Hono().get(
         .innerJoin(accounts, eq(transactions.accountId, accounts.id))
         .where(
           and(
-            accountId ? eq(transactions.accountId, accounts.id) : undefined,
+            accountId ? eq(transactions.accountId, accountId) : undefined,
             eq(accounts.userId, userId),
             gte(transactions.date, startDate),
             lte(transactions.date, endDate),
@@ -83,8 +85,8 @@ const app = new Hono().get(
       lastPeriod.income ?? 0,
     );
     const expenseChange = calculatePercentageChange(
-      currentPeriod.expenses ?? 0,
-      lastPeriod.expenses ?? 0,
+      currentPeriod.expense ?? 0,
+      lastPeriod.expense ?? 0,
     );
     const remainingChange = calculatePercentageChange(
       currentPeriod.remaining ?? 0,
@@ -101,7 +103,7 @@ const app = new Hono().get(
       .innerJoin(categories, eq(transactions.categoryId, categories.id))
       .where(
         and(
-          accountId ? eq(transactions.accountId, accounts.id) : undefined,
+          accountId ? eq(transactions.accountId, accountId) : undefined,
           eq(accounts.userId, auth.userId),
           lt(transactions.amount, 0),
           gte(transactions.date, startDate),
@@ -142,7 +144,7 @@ const app = new Hono().get(
       .innerJoin(accounts, eq(transactions.accountId, accounts.id))
       .where(
         and(
-          accountId ? eq(transactions.accountId, accounts.id) : undefined,
+          accountId ? eq(transactions.accountId, accountId) : undefined,
           eq(accounts.userId, auth.userId),
           gte(transactions.date, startDate),
           lte(transactions.date, endDate),
@@ -159,7 +161,7 @@ const app = new Hono().get(
         remainingChange,
         incomeAmount: currentPeriod.income,
         incomeChange,
-        expenseAmount: currentPeriod.expenses,
+        expenseAmount: currentPeriod.expense,
         expenseChange,
         categories: finalCategories,
         days,
