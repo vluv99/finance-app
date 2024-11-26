@@ -1,8 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileSearch } from "lucide-react";
+import { AreaChart, BarChart3, FileSearch, LineChart } from "lucide-react";
 import { AreaVariant } from "@/components/area-variant";
 import { BarVariant } from "@/components/bar-variant";
 import { LineVariant } from "@/components/line-variant";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Props = {
   data?: {
@@ -13,11 +21,42 @@ type Props = {
 };
 
 export function Chart({ data = [] }: Props) {
+  const [chartType, setChartType] = useState("area");
+
+  const onTypeChange = (type: string) => {
+    //TODO: Add paywall
+    setChartType(type);
+  };
+
   return (
     <Card className="border-none drop-shadow-sm">
-      <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row">
+      <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row lg:items-center justify-between">
         <CardTitle className="text-xl line-clamp-1">Transactions</CardTitle>
-        {/*TODO: add select*/}
+        <Select defaultValue={chartType} onValueChange={onTypeChange}>
+          <SelectTrigger className="lg:w-auto h-9 rounded-md px-3">
+            <SelectValue placeholder="Chart type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="area">
+              <div className="flex flex-center">
+                <AreaChart className="size-4 mr-2 shrink-0" />
+                <p className="line-clamp-1">Area chart</p>
+              </div>
+            </SelectItem>
+            <SelectItem value="line">
+              <div className="flex flex-center">
+                <LineChart className="size-4 mr-2 shrink-0" />
+                <p className="line-clamp-1">Line chart</p>
+              </div>
+            </SelectItem>
+            <SelectItem value="bar">
+              <div className="flex flex-center">
+                <BarChart3 className="size-4 mr-2 shrink-0" />
+                <p className="line-clamp-1">Bar chart</p>
+              </div>
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </CardHeader>
       <CardContent>
         {data?.length === 0 ? (
@@ -28,9 +67,11 @@ export function Chart({ data = [] }: Props) {
             </p>
           </div>
         ) : (
-          // <AreaVariant data={data} />
-          // <BarVariant data={data} />
-          <LineVariant data={data} />
+          <>
+            {chartType === "area" && <AreaVariant data={data} />}
+            {chartType === "bar" && <BarVariant data={data} />}
+            {chartType === "line" && <LineVariant data={data} />}
+          </>
         )}
       </CardContent>
     </Card>
