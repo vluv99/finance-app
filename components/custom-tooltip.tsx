@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { format } from "date-fns";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/lib/utils";

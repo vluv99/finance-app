@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useCSVReader } from "react-papaparse";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";

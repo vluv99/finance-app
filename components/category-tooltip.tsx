@@ -1,4 +1,5 @@
-import { format } from "date-fns";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/lib/utils";
 

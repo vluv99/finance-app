@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { cn, formatCurrency, formatPercentage } from "@/lib/utils";
 import { CountUp } from "@/components/count-up";
-import { className } from "postcss-selector-parser";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const boxVariants = cva("rounded-md p-3", {
