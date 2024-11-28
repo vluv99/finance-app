@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 type Props = {
   children: ReactNode;
@@ -8,8 +8,10 @@ type Props = {
 function DashboardLayout({ children }: Props) {
   return (
     <>
-      <Header />
-      <main className="px-3 lg:px-14">{children}</main>
+      <Suspense>
+        <Header />
+        <main className="px-3 lg:px-14">{children}</main>
+      </Suspense>
     </>
   );
 }
