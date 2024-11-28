@@ -1,4 +1,4 @@
-# Finance App
+# ![logo.svg](public/logo.svg) Finance App
 
 This is a demo project built to practice and enhance skills with Next.js and React. It provides basic functionality for tracking and managing personal finances.
 
