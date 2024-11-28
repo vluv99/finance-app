@@ -1,3 +1,5 @@
+![Finance App](https://img.shields.io/github/deployments/vluv99/finance-app/production?style=flat&logo=vercel&logoColor=white&label=vercel)
+
 # ![logo.svg](public/logo.svg) Finance App
 
 This is a demo project built to practice and enhance skills with Next.js and React. It provides basic functionality for tracking and managing personal finances.
