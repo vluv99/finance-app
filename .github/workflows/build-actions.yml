@@ -13,8 +13,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Production  # Specify the environment here
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
       - name: Use Bun
         uses: oven-sh/setup-bun@v2  # run any `bun` or `bunx` command from here
@@ -22,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: bun install
 
-      - name: Run Build
+      - name: Build the project
         env:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
