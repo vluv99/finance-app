@@ -1,4 +1,5 @@
 ![Finance App](https://img.shields.io/github/deployments/vluv99/finance-app/production?style=flat&logo=vercel&logoColor=white&label=vercel)
+![Finance App](https://img.shields.io/github/actions/workflow/status/vluv99/finance-app/build-actions.yml?style=flat&logo=github&logoColor=white)
 
 # ![logo.svg](public/logo.svg) Finance App
 
